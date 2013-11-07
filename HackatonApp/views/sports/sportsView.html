@@ -17,10 +17,13 @@
 <script type="text/x-kendo-template" id="sportTemplate">
     <div data-role="touch">
         <div class="user-info">
+            <span>
+                
+            </span>
+                <input type="checkbox" data-role="switch" data-bind="events: { change: changeFavorite }" />
             <h2>${SportName}</h2>
-            
         </div>
-        <div class="user-share">
+        <div class="user-share" style="display: none;">
             
         </div>
     </div>
