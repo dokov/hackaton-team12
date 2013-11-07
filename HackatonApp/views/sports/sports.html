@@ -1,0 +1,27 @@
+<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-model="app.viewModels.sports">
+    <header data-role="header">
+        <div data-role="navbar">
+            Sports
+            <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
+        </div>
+    </header>
+
+    <ul id="activities-listview" data-style="inset" data-role="listview" data-template="sportTemplate"
+        data-bind="source: sports"></ul>
+    <p id="no-activities-span" hidden="hidden" class="no-items-msg">
+        <b>You have no posts yet.</b><br /><br />Tap on the plus sign and share what's on your mind.
+    </p>
+</div>
+
+<!-- Activities ListView Template -->
+<script type="text/x-kendo-template" id="sportTemplate">
+    <div data-role="touch">
+        <div class="user-info">
+            <h2>${SportName}</h2>
+            
+        </div>
+        <div class="user-share">
+            
+        </div>
+    </div>
+</script>

@@ -1,5 +1,5 @@
 (function (app, $, undefined) {
-    
+   
     var AppHelper = {
 		resolveProfilePictureUrl: function (id) {
 			if (id && id !== applicationSettings.emptyGuid) {
@@ -29,20 +29,12 @@
 		}
 	};
     
-    var activitiesModel = (function () {
-		var activityModel = {
+    var sportsModel = (function () {
+		var sportModel = {
 			id: 'Id',
 			fields: {
-				Text: {
-					field: 'Text',
-					defaultValue: ''
-				},
-				CreatedAt: {
-					field: 'CreatedAt',
-					defaultValue: new Date()
-				},
-				Picture: {
-					fields: 'Picture',
+				SportName: {
+					field: 'SportName',
 					defaultValue: ''
 				},
 				UserId: {
@@ -56,9 +48,6 @@
 			},
 			CreatedAtFormatted: function () {
 				return AppHelper.formatDate(this.get('CreatedAt'));
-			},
-			PictureUrl: function () {
-				return AppHelper.resolvePictureUrl(this.get('Picture'));
 			},
 			User: function () {
 				var userId = this.get('UserId');
@@ -74,65 +63,39 @@
 				};
 			}
 		};
-		var activitiesDataSource = new kendo.data.DataSource({
+		var sportsDataSource = new kendo.data.DataSource({
 			type: 'everlive',
 			schema: {
-				model: activityModel
+				model: sportModel
 			},
 			transport: {
 				// required by Everlive
-				typeName: 'Activities'
+				typeName: 'Sports'
 			},
 			change: function (e) {
-				if (e.items && e.items.length > 0) {
-					$('#no-activities-span').hide();
-				}
-				else {
-					$('#no-activities-span').show();
-				}
+				console.log("change");
 			},
+            error: function (e) {
+                  console.log("error");
+            },
+            requestStart: function () {
+                console.log("requrestStarted");
+            },
 			sort: { field: 'CreatedAt', dir: 'desc' }
 		});
 		return {
-			activities: activitiesDataSource
+			sports: sportsDataSource
 		};
 	}());
     
-    var activitiesViewModel = (function () {
-		var activitySelected = function (e) {
-			mobileApp.navigate('views/activityView.html?uid=' + e.data.uid);
-		};
-		var navigateHome = function () {
-			mobileApp.navigate('#welcome');
-		};
-		var logout = function () {
-			AppHelper.logout()
-			.then(navigateHome, function (err) {
-				showError(err.message);
-				navigateHome();
-			});
-		};
-		return {
-			activities: activitiesModel.activities,
-			activitySelected: activitySelected,
-			logout: logout
-		};
-	}());
-
-	return {
-		viewModels: {
-			login: loginViewModel,
-			signup: singupViewModel,
-			activities: activitiesViewModel,
-			activity: activityViewModel,
-			addActivity: addActivityViewModel
-		}
-	};
+    app.viewModels.sportActivities = {
+    };
     
     app.viewModels.sports = {
-        showActivities: function () {
-            
-        }
+        sports: sportsModel,
+        name: "Sports",
+        activitySelected: $.noop,
+		logout: $.noop
     };
     
 })(window.app, jQuery);

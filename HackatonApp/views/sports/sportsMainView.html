@@ -1,13 +1,23 @@
-<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-model="app.viewModels.activities">
+<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-model="app.viewModels.sportActivities">
     <header data-role="header">
         <div data-role="navbar">
-            Sports View
-            <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.activities.logout">Log out</a>
-            <a class="nav-button" data-align="right" data-role="button" data-icon="add" href="views/addActivityView.html"></a>
+            Sport Activities
+            <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
         </div>
     </header>
 
     <ul id="activities-listview" data-style="inset" data-role="listview">
-    	
+        <li>
+            <a data-role="button">Create event</a>
+        </li>
+    	<li>
+        	<a data-role="button" href="views/sports/sports.html">Sports</a>
+        </li>
+        <li>
+        	<a data-role="button">Favorite Events</a>
+        </li>
+        <li>
+        	<a data-role="button">All Events</a>
+        </li>
     </ul>
 </div>
