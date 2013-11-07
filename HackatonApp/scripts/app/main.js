@@ -36,12 +36,13 @@ var app = (function () {
 
 	var applicationSettings = {
 		emptyGuid: '00000000-0000-0000-0000-000000000000',
-		apiKey: 'EVERLIVE_API_KEY' //Put your API key here
+		apiKey: 'E9ksyDFaxbPWtyZV' //Put your API key here
 	};
 
 	// initialize Everlive SDK
 	var el = new Everlive({
-		apiKey: applicationSettings.apiKey
+		apiKey: applicationSettings.apiKey,
+        scheme: 'http'
 	});
 
 	var facebook = new IdentityProvider({
@@ -208,25 +209,13 @@ var app = (function () {
 		var activityModel = {
 			id: 'Id',
 			fields: {
-				Text: {
-					field: 'Text',
+				Title: {
+					field: 'Title',
 					defaultValue: ''
 				},
-				CreatedAt: {
-					field: 'CreatedAt',
-					defaultValue: new Date()
-				},
-				Picture: {
-					fields: 'Picture',
+                Address: {
+					field: 'Address',
 					defaultValue: ''
-				},
-				UserId: {
-					field: 'UserId',
-					defaultValue: ''
-				},
-				Likes: {
-					field: 'Likes',
-					defaultValue: []
 				}
 			},
 			CreatedAtFormatted: function () {
@@ -256,7 +245,7 @@ var app = (function () {
 			},
 			transport: {
 				// required by Everlive
-				typeName: 'Activities'
+				typeName: 'Discounts'
 			},
 			change: function (e) {
 				if (e.items && e.items.length > 0) {

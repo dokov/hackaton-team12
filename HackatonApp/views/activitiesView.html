@@ -18,11 +18,11 @@
 <script type="text/x-kendo-template" id="activityTemplate">
     <div data-role="touch" data-bind="events: { tap: activitySelected }">
         <div class="user-info">
-            <h2>${User().DisplayName}</h2>
+            <h2>${Title}</h2>
             <time class="timeSpan">${CreatedAtFormatted()}</time>
         </div>
         <div class="user-share">
-            <a class="user-share-txt">${Text}</a>
+            <a class="user-share-txt">${Address}</a>
         </div>
     </div>
 </script>
