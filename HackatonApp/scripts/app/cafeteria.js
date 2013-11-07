@@ -4,7 +4,7 @@ app.cafeteria = (function(){
     var todayMenu = {
             show: function (e) {
 				 var query = new Everlive.Query();
-                 var data = app.el.data('Menu');
+                 var data = app.everlive.data('Menu');
                  data.get(query.orderDesc('MenuDate').take(1)).then(function(data){
                         var date = new Date(data.result[0].MenuDate);
                         var formattedDate = date.getMonth() + 1 + '/' + date.getDate() + '/' +  date.getFullYear()
