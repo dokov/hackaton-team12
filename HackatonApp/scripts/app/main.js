@@ -309,7 +309,7 @@ var app = (function () {
             },
             {
                 Title: "Cafeteria",
-                Url: "views/activitiesView.html",
+                Url: "views/Cafeteria/todaysMenuView.html",
                 IconUrl: ""
             }
         

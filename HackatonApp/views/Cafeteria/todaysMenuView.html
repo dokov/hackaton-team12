@@ -1,14 +1,14 @@
-<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-model="app.viewModels.activities">
+<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-show="app.cafeteria.viewModels.todayMenu.show">
     <header data-role="header">
         <div data-role="navbar">
             Today's Menu
-            <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.activities.logout">Log out</a>
         </div>
-    </header>
-
-    <div data-role="view" id="todayMenu" data-style="inset" data-model="app.cafeteria.viewModels.todayMenu">
-        <div>
-            ${Content}
-        </div>
+        <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
+    </header>   
+    <div class="user-info" id="todayMenu" data-style="inset" >
+        <h2 data-bind="text: formattedDate"></h2>
+        <pre>
+            <div data-bind="html: menuItem.Content"></div>
+        </pre>
     </div>
 </div>
