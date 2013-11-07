@@ -1,6 +1,6 @@
 var app = (function () {
 	'use strict';
-
+    
 	// global error handling
 	var showAlert = function(message, title, callback) {
 		navigator.notification.alert(message, callback || function () {
@@ -294,12 +294,12 @@ var app = (function () {
             },
             {
                 Title: "Sport activities",
-                Url: "views/activitiesView.html",
+                Url: "views/sports/sportsMainView.html",
                 IconUrl: ""
             },
             {
                 Title: "Lunch",
-                Url: "views/Places/placesView.html",
+                Url: "views/activitiesView.html",
                 IconUrl: ""
             },
             {
@@ -309,7 +309,7 @@ var app = (function () {
             },
             {
                 Title: "Cafeteria",
-                Url: "views/Cafeteria/todaysMenuView.html",
+                Url: "views/activitiesView.html",
                 IconUrl: ""
             }
         
@@ -379,9 +379,7 @@ var app = (function () {
 	}());
 
 	return {
-        mobileApp: mobileApp,
-        helper: AppHelper,
-        el : el,
+        everlive: el,
 		viewModels: {
 			login: loginViewModel,
 			mainMenu: mainMenuViewModel,
@@ -391,4 +389,4 @@ var app = (function () {
 			addActivity: addActivityViewModel
 		}
 	};
-}());
+})();

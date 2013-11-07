@@ -1,0 +1,54 @@
+<div data-role="view" id="new-event-view" data-layout="default" class="activities-view" data-show="app.viewModels.sports.newEvent.show" data-model="app.viewModels.sports">
+    <header data-role="header">
+        <div data-role="navbar">
+            Create New Event
+            <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
+        </div>
+    </header>
+
+    <ul id="newEvent-listview" data-style="inset" data-role="listview" style="">
+        <li>
+            <div class="user-info" >
+                Choose Sport:
+                <select id="sports" data-bind="source: newEventSports" data-template="sportDropDownListTemplate">
+                </select>
+            </div>
+        </li>
+        <li>
+            <div class="user-info" >
+                Name:
+                <input id="name" type="text" />
+            </div>
+        </li>
+        <li>
+            <div class="user-info">
+                Date & Time: 
+                <input id="dateTime" type="datetime" />
+            </div>
+        </li>
+        <li>
+            <div class="user-info" >
+                Description:
+                <input id="description" type="text" />
+            </div>
+        </li>
+        <li>
+            <div class="user-info" >
+                Available Slots:
+                <input id="availableSlots" type="number" value="1" />
+            </div>
+        </li>
+        <li>
+            <div data-role="touch" data-bind="events: { tap: createEvent }">
+                <a data-role="button">Create Event</a>    
+            </div>
+        </li>
+    </ul>
+    <p id="no-activities-span" hidden="hidden" class="no-items-msg">
+        <b>You have no posts yet.</b><br /><br />Tap on the plus sign and share what's on your mind.
+    </p>
+</div>
+
+<script type="text/x-kendo-template" id="sportDropDownListTemplate">
+    <option data-bind="attr: { value: Id}}">${SportName}</option>
+</script>
