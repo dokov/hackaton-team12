@@ -64,7 +64,30 @@
 			},
             changeFavorite: function (e) {
                 var isChecked = e.checked;
-            }
+                
+                app.everlive.Users.currentUser().then(function (data) {
+                        Everlive.$.data("FavoriteSports").create(
+                            {
+                                "SportId": e.data.Id,
+                                "UserId": data.result.Id
+                            },
+                            function () {
+                                  debugger;        
+                            },
+                            function (data1, data2, data3) { 
+                                  debugger;
+                            }
+                        );
+                    });
+                
+                app.everlive.destroy({ '${PropertyName}': 'Sample Text' }, // filter
+                    function (data) {
+                        alert('Items successfully deleted.');
+                    },
+                    function(error){
+                        alert(JSON.stringify(error));
+                    } );
+                }
 		};
 		var sportsDataSource = new kendo.data.DataSource({
 			type: 'everlive',
@@ -237,7 +260,6 @@
             },
 			sort: { field: 'CreatedAt', dir: 'desc' }
 		});
-        sportsDataSource.read();
 		return sportsDataSource;
 	}());
     
@@ -278,10 +300,10 @@
                     "SlotsAvailable": availableSlots
                 },
                 function () {
-                      debugger;  
+                      
                 },
                 function (data1, data2, data3) { 
-                    debugger;
+                  
                 }
             );
         }
