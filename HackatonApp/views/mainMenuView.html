@@ -1,0 +1,22 @@
+<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-model="app.viewModels.mainMenu">
+    <header data-role="header">
+        <div data-role="navbar">
+            Welcome!
+            <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.activities.logout">Log out</a>
+            <a class="nav-button" data-align="right" data-role="button" data-icon="add" href="views/addActivityView.html"></a>
+        </div>
+    </header>
+
+    <ul id="activities-listview" data-style="inset" data-role="listview" data-template="menuItemTemplate"
+        data-bind="source: menuItems"></ul>
+</div>
+
+<!-- Activities ListView Template -->
+<script type="text/x-kendo-template" id="menuItemTemplate">
+    <div data-role="touch" data-bind="events: { tap: menuItemSelected }">
+        <div class="menu-item">
+            <img data-bind="attr: { src: IconUrl }" />
+            <h2>${Title}</h2>
+        </div>
+    </div>
+</script>

@@ -36,12 +36,13 @@ var app = (function () {
 
 	var applicationSettings = {
 		emptyGuid: '00000000-0000-0000-0000-000000000000',
-		apiKey: 'EVERLIVE_API_KEY' //Put your API key here
+		apiKey: 'E9ksyDFaxbPWtyZV' //Put your API key here
 	};
 
 	// initialize Everlive SDK
 	var el = new Everlive({
-		apiKey: applicationSettings.apiKey
+		apiKey: applicationSettings.apiKey,
+        scheme: 'http'
 	});
 
 	var facebook = new IdentityProvider({
@@ -127,7 +128,7 @@ var app = (function () {
 				return usersModel.load();
 			})
 			.then(function () {
-				mobileApp.navigate('views/activitiesView.html');
+				mobileApp.navigate('views/mainMenuView.html');
 			})
 			.then(null,
 				  function (err) {
@@ -144,7 +145,7 @@ var app = (function () {
 				})
 				.then(function () {
 					mobileApp.hideLoading();
-					mobileApp.navigate('views/activitiesView.html');
+					mobileApp.navigate('views/mainMenuView.html');
 				})
 				.then(null, function (err) {
 					mobileApp.hideLoading();
@@ -208,29 +209,17 @@ var app = (function () {
 		var activityModel = {
 			id: 'Id',
 			fields: {
-				Text: {
-					field: 'Text',
+				Title: {
+					field: 'Title',
 					defaultValue: ''
 				},
-				CreatedAt: {
-					field: 'CreatedAt',
-					defaultValue: new Date()
-				},
-				Picture: {
-					fields: 'Picture',
+                Address: {
+					field: 'Address',
 					defaultValue: ''
-				},
-				UserId: {
-					field: 'UserId',
-					defaultValue: ''
-				},
-				Likes: {
-					field: 'Likes',
-					defaultValue: []
 				}
 			},
 			CreatedAtFormatted: function () {
-				return AppHelper.formatDate(this.get('CreatedAt'));
+				return 'Added on ' + AppHelper.formatDate(this.get('CreatedAt'));
 			},
 			PictureUrl: function () {
 				return AppHelper.resolvePictureUrl(this.get('Picture'));
@@ -256,7 +245,7 @@ var app = (function () {
 			},
 			transport: {
 				// required by Everlive
-				typeName: 'Activities'
+				typeName: 'Discounts'
 			},
 			change: function (e) {
 				if (e.items && e.items.length > 0) {
@@ -291,6 +280,58 @@ var app = (function () {
 		return {
 			activities: activitiesModel.activities,
 			activitySelected: activitySelected,
+			logout: logout
+		};
+	}());
+    
+	// Main menu view model
+	var mainMenuViewModel = (function () {
+        var menuItems = [
+            {
+                Title: "Discounts",
+                Url: "views/activitiesView.html",
+                IconUrl: "img/icons/icon_discounts.png"
+            },
+            {
+                Title: "Sport activities",
+                Url: "views/activitiesView.html",
+                IconUrl: ""
+            },
+            {
+                Title: "Lunch",
+                Url: "views/activitiesView.html",
+                IconUrl: ""
+            },
+            {
+                Title: "Massages",
+                Url: "views/activitiesView.html",
+                IconUrl: ""
+            },
+            {
+                Title: "Cafeteria",
+                Url: "views/activitiesView.html",
+                IconUrl: ""
+            }
+        
+        ];
+        
+		var menuItemSelected = function (e) {
+            var viewUrl = e.data.Url;
+			mobileApp.navigate(viewUrl);
+		};
+		var navigateHome = function () {
+			mobileApp.navigate('#welcome');
+		};
+		var logout = function () {
+			AppHelper.logout()
+			.then(navigateHome, function (err) {
+				showError(err.message);
+				navigateHome();
+			});
+		};
+		return {
+			menuItems: menuItems,
+			menuItemSelected: menuItemSelected,
 			logout: logout
 		};
 	}());
@@ -340,6 +381,7 @@ var app = (function () {
 	return {
 		viewModels: {
 			login: loginViewModel,
+			mainMenu: mainMenuViewModel,
 			signup: singupViewModel,
 			activities: activitiesViewModel,
 			activity: activityViewModel,
