@@ -327,6 +327,7 @@ var app = (function () {
 	}());
 
 	return {
+        el : el,
 		viewModels: {
 			login: loginViewModel,
 			signup: singupViewModel,
