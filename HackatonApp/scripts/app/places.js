@@ -61,7 +61,7 @@ app.places = (function(){
 			show: function (e) {
 				var place = placesModel.places.getByUid(e.view.params.uid);
                 var query = new Everlive.Query();
-                var data = app.el.data('Rating');
+                var data = app.everlive.data('Rating');
                 data.get(query.where().eq('RatedItem', place.id).done()).then(function(dt){
                     var ratingTotal = 0;
                     if(dt.count && dt.count > 0)
@@ -88,7 +88,7 @@ app.places = (function(){
         onSelect: function(e){
             var userId = app.viewModels.addActivity.me.data.Id;
             var value = parseInt(this.current().text());
-            var data = app.el.data('Rating');
+            var data = app.everlive.data('Rating');
             var query = new Everlive.Query();
             var place = placesModel.places.getByUid(e.sender.view().params.uid);
             data.get(query.where().eq('CreatedBy', userId).done()).then(function(dt){

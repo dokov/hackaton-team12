@@ -299,7 +299,7 @@ var app = (function () {
             },
             {
                 Title: "Lunch",
-                Url: "views/activitiesView.html",
+                Url: "views/Places/placesView.html",
                 IconUrl: ""
             },
             {
@@ -370,7 +370,7 @@ var app = (function () {
 				activities.sync();
 			}
 		};
-		return {
+		return {            
 			init: init,
 			show: show,
 			me: usersModel.currentUser,
@@ -379,6 +379,8 @@ var app = (function () {
 	}());
 
 	return {
+        mobileApp: mobileApp,
+        helper: AppHelper,
         everlive: el,
 		viewModels: {
 			login: loginViewModel,
