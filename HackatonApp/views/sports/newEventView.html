@@ -1,4 +1,4 @@
-<div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-show="app.viewModels.sports.newEvent.show" data-model="app.viewModels.sports">
+<div data-role="view" id="new-event-view" data-layout="default" class="activities-view" data-show="app.viewModels.sports.newEvent.show" data-model="app.viewModels.sports">
     <header data-role="header">
         <div data-role="navbar">
             Create New Event
@@ -6,11 +6,11 @@
         </div>
     </header>
 
-    <ul id="activities-listview" data-style="inset" data-role="listview" style="">
+    <ul id="newEvent-listview" data-style="inset" data-role="listview" style="">
         <li>
             <div class="user-info" >
                 Choose Sport:
-                <select id="sports" data-bind="source: newEventSports" data-template="sportTemplate">
+                <select id="sports" data-bind="source: newEventSports" data-template="sportDropDownListTemplate">
                 </select>
             </div>
         </li>
@@ -49,6 +49,6 @@
     </p>
 </div>
 
-<script type="text/x-kendo-template" id="sportTemplate">
+<script type="text/x-kendo-template" id="sportDropDownListTemplate">
     <option data-bind="attr: { value: Id}}">${SportName}</option>
 </script>

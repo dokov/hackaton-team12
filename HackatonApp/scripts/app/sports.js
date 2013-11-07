@@ -63,31 +63,35 @@
 				};
 			},
             changeFavorite: function (e) {
-                var isChecked = e.checked;
-                
+                var isChecked = e.checked,
+                    sportId = e.data.id;
                 app.everlive.Users.currentUser().then(function (data) {
-                        Everlive.$.data("FavoriteSports").create(
+                    if (isChecked) {
+                         Everlive.$.data("FavoriteSports").create(
                             {
-                                "SportId": e.data.Id,
+                                "SportId": sportId,
                                 "UserId": data.result.Id
                             },
                             function () {
-                                  debugger;        
+                                
                             },
                             function (data1, data2, data3) { 
-                                  debugger;
                             }
-                        );
-                    });
-                
-                app.everlive.destroy({ '${PropertyName}': 'Sample Text' }, // filter
-                    function (data) {
-                        alert('Items successfully deleted.');
-                    },
-                    function(error){
-                        alert(JSON.stringify(error));
-                    } );
-                }
+                        );   
+                    } else {
+                        Everlive.$.data("FavoriteSports").destroy(
+                            {
+                                "SportId": sportId,
+                                "UserId": data.result.Id
+                            },
+                            function () {
+                            },
+                            function (data1, data2, data3) { 
+                            }
+                        );   
+                    }    
+                });    
+            }
 		};
 		var sportsDataSource = new kendo.data.DataSource({
 			type: 'everlive',
@@ -211,6 +215,7 @@
 					field: 'SportName',
 					defaultValue: ''
 				},
+                IsFavorite: false,
 				UserId: {
 					field: 'UserId',
 					defaultValue: ''
@@ -306,6 +311,31 @@
                   
                 }
             );
+        },
+        sportsViewShow: function (e) {
+            var element = e.view.element;
+            sportsModel.bind("change", function  (e) {
+                var items = e.items;
+                Everlive.$.data('FavoriteSports').get()
+                .then(function (data) {
+                    var favoriteSports = data.result;
+                    app.everlive.Users.currentUser().then(function (currentUser) {
+                        currentUser = currentUser.result;
+                        for (var i = 0; i < favoriteSports.length; i++) {
+                            if (currentUser.Id == favoriteSports[i].UserId) {
+                                for (var j = 0; j < items.length; j++) {
+                                    if (items[j].Id == favoriteSports[i].SportId) {
+                                        items[j].IsFavorite = true;
+                                    }
+                                }
+                            }
+                        }
+                        kendo.bind(element, { sports: items }, kendo.mobile.ui);
+                        sportsModel.unbind("change");
+                    });
+                });
+            });
+            sportsModel.read();
         }
     };
     
