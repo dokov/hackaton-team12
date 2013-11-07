@@ -299,7 +299,7 @@ var app = (function () {
             },
             {
                 Title: "Lunch",
-                Url: "views/activitiesView.html",
+                Url: "views/Places/placesView.html",
                 IconUrl: ""
             },
             {
@@ -379,6 +379,8 @@ var app = (function () {
 	}());
 
 	return {
+        mobileApp: mobileApp,
+        helper: AppHelper,
         el : el,
 		viewModels: {
 			login: loginViewModel,

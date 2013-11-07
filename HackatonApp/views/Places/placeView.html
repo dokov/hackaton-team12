@@ -1,0 +1,15 @@
+<div data-role="view" id="single-activity" data-layout="default" class="activities-view" data-show="app.places.placeViewModel.show">
+    <header data-role="header">
+        <div data-role="navbar">
+            Place
+            <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
+        </div>
+    </header>
+
+    <div id="status-container" class="user-status-wrp" data-role="listview" data-style="inset">
+        <h2 data-bind="html: Title"></h2>
+        <div data-bind="html: Description" class="user-share">
+        </div>
+        <img id="picture" data-bind="attr:{src: ImageUrl()}" width="100%"/>
+    </div>
+</div>
