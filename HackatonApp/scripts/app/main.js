@@ -1,6 +1,6 @@
 var app = (function () {
 	'use strict';
-
+    
 	// global error handling
 	var showAlert = function(message, title, callback) {
 		navigator.notification.alert(message, callback || function () {
@@ -294,7 +294,7 @@ var app = (function () {
             },
             {
                 Title: "Sport activities",
-                Url: "views/activitiesView.html",
+                Url: "views/sports/sportsMainView.html",
                 IconUrl: ""
             },
             {
@@ -379,6 +379,7 @@ var app = (function () {
 	}());
 
 	return {
+        everlive: el,
 		viewModels: {
 			login: loginViewModel,
 			mainMenu: mainMenuViewModel,
@@ -388,4 +389,4 @@ var app = (function () {
 			addActivity: addActivityViewModel
 		}
 	};
-}());
+})();
