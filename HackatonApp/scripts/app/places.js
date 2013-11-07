@@ -8,16 +8,15 @@ app.places = (function(){
 				Title: {
 					field: 'Title',
 					defaultValue: ''
-				},
-                Address: {
-					field: 'Address',
-					defaultValue: ''
 				}
 			},
 			ImageUrl: function () {
 				return app.helper.resolvePictureUrl(this.get('Image'));
 			}
 		};
+        var ratingModel = {
+            id: 'Id'
+        };
 		var placesDataSource = new kendo.data.DataSource({
 			type: 'everlive',
 			schema: {
@@ -29,7 +28,19 @@ app.places = (function(){
 			},
 			sort: { field: 'CreatedAt', dir: 'desc' }
 		});
+        var ratingsDataSource = new kendo.data.DataSource({
+			type: 'everlive',
+			schema: {
+				model: ratingModel
+			},
+			transport: {
+				// required by Everlive
+				typeName: 'Rating'
+			},
+			sort: { field: 'CreatedAt', dir: 'desc' }
+		});
 		return {
+            ratings: ratingsDataSource,
 			places: placesDataSource
 		};
 	}());
@@ -37,7 +48,6 @@ app.places = (function(){
 	// places view model
 	var placesViewModel = (function () {
 		var placeSelected = function (e) {
-            debugger;
 			app.mobileApp.navigate('views/Places/placeView.html?uid=' + e.data.uid);
 		};
 		return {
@@ -49,14 +59,56 @@ app.places = (function(){
     var placeViewModel = (function () {
 		return {
 			show: function (e) {
-                debugger;
 				var place = placesModel.places.getByUid(e.view.params.uid);
-				kendo.bind(e.view.element, place, kendo.mobile.ui);
+                var query = new Everlive.Query();
+                var data = app.el.data('Rating');
+                data.get(query.where().eq('RatedItem', place.id).done()).then(function(dt){
+                    var ratingTotal = 0;
+                    if(dt.count && dt.count > 0)
+                    {
+                        var ratingSum = 0;
+                        for(var i=0; i<dt.count; i++){
+                            ratingSum += dt.result[i].Value;
+                        }
+                        ratingTotal = Math.round(ratingSum/dt.count);
+                    }
+                    
+                     var viewModel = kendo.observable({
+                            place: place,
+                            rating: ratingTotal
+                        });
+                    kendo.bind(e.view.element, viewModel, kendo.mobile.ui);
+                });
+				
 			}
 		};
 	}());
     
+    var ratingLogic = {
+        onSelect: function(e){
+            var userId = app.viewModels.addActivity.me.data.Id;
+            var value = parseInt(this.current().text());
+            var data = app.el.data('Rating');
+            var query = new Everlive.Query();
+            var place = placesModel.places.getByUid(e.sender.view().params.uid);
+            data.get(query.where().eq('CreatedBy', userId).done()).then(function(dt){
+                if(!dt.count){
+                    data.create({'Value': value, 'RatedItem' : place.Id}, function(succ){
+                    alert("Successfully rated this item!");
+                });
+                }
+                else{
+                    data.update({'Value': value}, {'CreatedBy': userId}, function(dt){
+                        alert("Successfully updated rating!");
+                    });
+                }
+            });
+            
+        },
+    };
+    
     return {
+        ratingLogic: ratingLogic,
         placesViewModel: placesViewModel,
         placeViewModel: placeViewModel
     };

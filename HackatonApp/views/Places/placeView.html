@@ -7,9 +7,19 @@
     </header>
 
     <div id="status-container" class="user-status-wrp" data-role="listview" data-style="inset">
-        <h2 data-bind="html: Title"></h2>
-        <div data-bind="html: Description" class="user-share">
+        <h1 data-bind="html: place.Title"></h1>
+        <label for="ratingHolder">Current Rating</label>
+        <h2 id="ratingHolder" data-bind="html: rating"></h2>
+        <h2>Your rating:</h2>
+        <ul data-role="buttongroup" data-select="app.places.ratingLogic.onSelect">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <div data-bind="html: place.Description" class="user-share">
         </div>
-        <img id="picture" data-bind="attr:{src: ImageUrl()}" width="100%"/>
+        <img id="picture" data-bind="attr:{src: place.ImageUrl()}" width="100%"/>
     </div>
 </div>
