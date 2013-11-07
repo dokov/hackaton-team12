@@ -128,7 +128,7 @@ var app = (function () {
 				return usersModel.load();
 			})
 			.then(function () {
-				mobileApp.navigate('views/activitiesView.html');
+				mobileApp.navigate('views/mainMenuView.html');
 			})
 			.then(null,
 				  function (err) {
@@ -145,7 +145,7 @@ var app = (function () {
 				})
 				.then(function () {
 					mobileApp.hideLoading();
-					mobileApp.navigate('views/activitiesView.html');
+					mobileApp.navigate('views/mainMenuView.html');
 				})
 				.then(null, function (err) {
 					mobileApp.hideLoading();
@@ -219,7 +219,7 @@ var app = (function () {
 				}
 			},
 			CreatedAtFormatted: function () {
-				return AppHelper.formatDate(this.get('CreatedAt'));
+				return 'Added on ' + AppHelper.formatDate(this.get('CreatedAt'));
 			},
 			PictureUrl: function () {
 				return AppHelper.resolvePictureUrl(this.get('Picture'));
@@ -283,6 +283,58 @@ var app = (function () {
 			logout: logout
 		};
 	}());
+    
+	// Main menu view model
+	var mainMenuViewModel = (function () {
+        var menuItems = [
+            {
+                Title: "Discounts",
+                Url: "views/activitiesView.html",
+                IconUrl: "img/icons/icon_discounts.png"
+            },
+            {
+                Title: "Sport activities",
+                Url: "views/activitiesView.html",
+                IconUrl: ""
+            },
+            {
+                Title: "Lunch",
+                Url: "views/activitiesView.html",
+                IconUrl: ""
+            },
+            {
+                Title: "Massages",
+                Url: "views/activitiesView.html",
+                IconUrl: ""
+            },
+            {
+                Title: "Cafeteria",
+                Url: "views/activitiesView.html",
+                IconUrl: ""
+            }
+        
+        ];
+        
+		var menuItemSelected = function (e) {
+            var viewUrl = e.data.Url;
+			mobileApp.navigate(viewUrl);
+		};
+		var navigateHome = function () {
+			mobileApp.navigate('#welcome');
+		};
+		var logout = function () {
+			AppHelper.logout()
+			.then(navigateHome, function (err) {
+				showError(err.message);
+				navigateHome();
+			});
+		};
+		return {
+			menuItems: menuItems,
+			menuItemSelected: menuItemSelected,
+			logout: logout
+		};
+	}());
 
 	// activity details view model
 	var activityViewModel = (function () {
@@ -330,6 +382,7 @@ var app = (function () {
         el : el,
 		viewModels: {
 			login: loginViewModel,
+			mainMenu: mainMenuViewModel,
 			signup: singupViewModel,
 			activities: activitiesViewModel,
 			activity: activityViewModel,
