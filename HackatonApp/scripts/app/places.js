@@ -60,10 +60,26 @@ app.places = (function(){
 		return {
 			show: function (e) {
 				var place = placesModel.places.getByUid(e.view.params.uid);
-                var query = new Everlive.Query();
-                var data = app.everlive.data('Rating');
-                data.get(query.where().eq('RatedItem', place.id).done()).then(function(dt){
+                    
+                var viewModel = kendo.observable({
+                        place: place,
+                    });
+                kendo.bind(e.view.element, viewModel, kendo.mobile.ui);
+				
+			}
+		};
+	}());
+    
+    var ratingLogic = {
+        onSelect: function(e){
+            var userId = app.viewModels.addActivity.me.data.Id,
+            value = parseInt(this.current().text()),
+            data = app.everlive.data('Rating'),
+            query = new Everlive.Query(),
+            place = placesModel.places.getByUid(e.sender.view().params.uid);
+            calculateRating = function(dt){
                     var ratingTotal = 0;
+                    
                     if(dt.count && dt.count > 0)
                     {
                         var ratingSum = 0;
@@ -72,34 +88,30 @@ app.places = (function(){
                         }
                         ratingTotal = Math.round(ratingSum/dt.count);
                     }
-                    
-                     var viewModel = kendo.observable({
-                            place: place,
-                            rating: ratingTotal
-                        });
-                    kendo.bind(e.view.element, viewModel, kendo.mobile.ui);
-                });
-				
-			}
-		};
-	}());
-    
-    var ratingLogic = {
-        onSelect: function(e){
-            var userId = app.viewModels.addActivity.me.data.Id;
-            var value = parseInt(this.current().text());
-            var data = app.everlive.data('Rating');
-            var query = new Everlive.Query();
-            var place = placesModel.places.getByUid(e.sender.view().params.uid);
-            data.get(query.where().eq('CreatedBy', userId).done()).then(function(dt){
+                    return ratingTotal;
+            },
+            
+            data.get(query.where().eq('CreatedBy', userId).eq('RatedItem', place.id).done()).then(function(dt){
                 if(!dt.count){
                     data.create({'Value': value, 'RatedItem' : place.Id}, function(succ){
-                    alert("Successfully rated this item!");
+                     var query = new Everlive.Query();
+                     data.get(query.where().eq('RatedItem', place.id).done()).then(function(dt){
+                         var totalRating = calculateRating(dt);
+                         place.set("Rating", totalRating);
+                         placesModel.places.sync();
+                         // alert("Successfully rated this item!");
+                    }); 
                 });
                 }
                 else{
                     data.update({'Value': value}, {'CreatedBy': userId}, function(dt){
-                        alert("Successfully updated rating!");
+                        var query = new Everlive.Query();
+                        data.get(query.where().eq('RatedItem', place.id).done()).then(function(dt){
+                         var totalRating = calculateRating(dt);
+                         place.set("Rating", totalRating);
+                         placesModel.places.sync();
+                    });
+                        
                     });
                 }
             });
