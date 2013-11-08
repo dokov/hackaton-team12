@@ -1,4 +1,4 @@
-<div data-role="view" id="view-activity-users" data-layout="default" class="activities-view" data-show="app.viewModels.sports.onWhosPlayingShow">
+<div data-role="view" id="view-activity-users" data-layout="default" class="activities-view sports" data-show="app.viewModels.sports.onWhosPlayingShow">
     <header data-role="header">
         <div data-role="navbar">
             <span data-bind="html: title"></span>
@@ -11,9 +11,10 @@
             <h2 data-bind="html: activity.ActivityName"></h2>
         </div>
         <div class="user-share">
-            Description: <a class="user-share-txt" data-bind="html: activity.Description"></a>
+            <span class="user-share-txt" data-bind="html: activity.Description"></span>
             <br/>
-            Event Date & Time: <a class="user-share-txt" data-bind="html: activity.EventDateTime"></a>    
+            <span class="user-share-txt" data-bind="html: activity.EventDateTime"></span>    
+            <br/>
             <br/>
         </div>
     </div>

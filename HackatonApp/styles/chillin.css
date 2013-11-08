@@ -11,12 +11,19 @@ h2{
     margin-bottom:0;
 }
 
+#friendsApp.km-ios .form-view .km-listinset{
+    box-shadow:none;
+}
+
 #friendsApp.km-ios .km-navbar{
     border:none;
 }
 
 .activities-view .km-list{
     margin:0!important;
+}
+#activities-listview .menu-item img {
+    background: none;
 }
 
 #activities-listview .menu-item h2{
@@ -33,16 +40,47 @@ h2{
     background:#FF3300;
 }
 #friendsApp #activities-listview.km-list > li:nth-child(2){
-    background:#A9DC3A;
+    background:#01A6DE;
 }
 #friendsApp #activities-listview.km-list > li:nth-child(3){
-    background:#2FCAD8;
+    background:#92C836;
 }
 #friendsApp #activities-listview.km-list > li:nth-child(4){
-    background:#818B85;
+    background:#FFBA14;
 }
 #friendsApp #activities-listview.km-list > li:nth-child(5){
-    background:#CDCDC1;
+    background:#826BAF;
+}
+
+h1.logo{
+    margin:3rem 0 2rem 0;
+    text-align:center;
+}
+h1.logo img{
+    width:60%;
+}
+
+.login-btn-group{
+    margin:2rem 1rem!important;
+    padding:0!important;
+}
+.login-btn{
+    display:block;
+}
+.login-btn .km-button{
+    width:100%;
+    height:40px;
+    line-height:40px;
+    padding:0!important;
+    background:#FF3300!important;
+}
+#friendsApp.km-ios #login-form .km-listinset > li:first-child{
+    border-radius:5px 5px 0 0;
+    border-color:#ddd;
+}
+#friendsApp.km-ios #login-form .km-listinset > li:last-child{
+    border-radius:0 0 5px 5px;
+    border-color:#ddd;
 }
 
 .user-info{
@@ -59,6 +97,22 @@ h2{
 .km-content{
     background:#fff!important;
 }
+
+#leavecomment{
+    margin:0 1rem;
+}
+#myComment{
+    width:98%;
+    height:30px;
+    line-height:30px;
+    margin:1rem 0;
+}
+#submitCommentButton{
+    margin-bottom:2rem;
+    background:#222!important;
+}
+
+
 
 /*Discounts*/
 .discounts .km-navbar{
@@ -81,7 +135,7 @@ h2{
 /*Places*/
 
 .places .km-navbar{
-    background:#2FCAD8!important;
+    background:#01A6DE!important;
 }
 #places-listview li{
     background:#fff!important;
@@ -97,6 +151,56 @@ h2{
 #places-listview li .user-info h2{
     color:#000;
 }
+
+/*Sports*/
+.sports .km-navbar{
+    background:#92C836!important;
+}
+#sports-listview li{
+    background:#fff!important;
+    margin:0!important;
+    padding:0.5rem 1rem!important;
+    border-bottom:1px solid #ddd!important;
+}
+#sports-listview li .user-info{
+
+    padding-left:0;
+    background:#fff!important;
+}
+#sports-listview li .user-info h2{
+    color:#000;
+}
+
+#events-listview li{
+    background:#fff!important;
+    margin:0!important;
+    padding:0.5rem 1rem!important;
+    border-bottom:1px solid #ddd!important;
+}
+#events-listview li .user-share, #events-listview li .user-info{
+
+    padding-left:0;
+    box-shadow:none;
+    background:#fff!important;
+}
+#events-listview li .user-info h2{
+    color:#000;
+}
+
+#acitvityUsers-listview .user-info{
+    padding:0 1rem;
+}
+
+.sportAction{
+    float:left;
+}
+.km-button{
+    background:#222!important;
+}
+.nav-button.km-button.km-back, .nav-button.km-button{
+    background:none!important;
+}
+
 
 
 #status-container{
@@ -119,7 +223,7 @@ h2{
     background:#444!important;
 }
 #status-container .km-buttongroup{
-    margin-bottom:4rem;
+    margin-bottom:2rem;
 }
 #status-container p{
 
