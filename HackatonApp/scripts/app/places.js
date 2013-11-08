@@ -56,20 +56,6 @@ app.places = (function(){
 		};
 	}());
     
-    var placeViewModel = (function () {
-		return {
-			show: function (e) {
-				var place = placesModel.places.getByUid(e.view.params.uid);
-                    
-                var viewModel = kendo.observable({
-                        place: place,
-                    });
-                kendo.bind(e.view.element, viewModel, kendo.mobile.ui);
-				
-			}
-		};
-	}());
-    
     var ratingLogic = {
         onSelect: function(e){
             var userId = app.viewModels.addActivity.me.data.Id,
@@ -99,7 +85,6 @@ app.places = (function(){
                          var totalRating = calculateRating(dt);
                          place.set("Rating", totalRating);
                          placesModel.places.sync();
-                         // alert("Successfully rated this item!");
                     }); 
                 });
                 }
@@ -119,7 +104,40 @@ app.places = (function(){
         },
     };
     
+    var commentsLogic = {
+        createComment: function(e){
+            debugger;
+            var data = app.everlive.data('Comment'),
+            place = placesModel.places.getByUid(e.sender.view().params.uid);
+            $element = $(e.event.target).closest("#single-activity"),
+            commentVal = $element.find("#myComment").val();
+            data.create({'Content' : commentVal, 'CommentedItem' : place.id}, function(succ){
+                
+            });
+        }
+    };
+    
+    var placeViewModel = (function () {
+		return {
+			show: function (e) {
+				var place = placesModel.places.getByUid(e.view.params.uid);
+                var data = app.everlive.data('Comment');
+                var query = new Everlive.Query();  
+                data.get(query.where().eq('CommentedItem', place.id).done()).then(function(dt){
+                    debugger;
+                    var viewModel = kendo.observable({
+                        commentsLogic: commentsLogic,
+                        comments: dt.result,
+                        place: place,
+                    });
+                    kendo.bind(e.view.element, viewModel, commentsLogic);
+                });
+			}
+		};
+	}());
+    
     return {
+        commentsLogic: commentsLogic,
         ratingLogic: ratingLogic,
         placesViewModel: placesViewModel,
         placeViewModel: placeViewModel
