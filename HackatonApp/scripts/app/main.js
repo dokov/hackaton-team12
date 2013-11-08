@@ -309,7 +309,7 @@ var app = (function () {
             },
             {
                 Title: "Massages",
-                Url: "views/activitiesView.html",
+                Url: "views/Massages/massagesView.html",
                 IconUrl: "img/icons/massages.png"
             }
         
