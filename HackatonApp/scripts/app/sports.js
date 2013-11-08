@@ -373,7 +373,7 @@
                         for (var i = 0; i < favoriteSports.length; i++) {
                             if (currentUser.Id == favoriteSports[i].UserId) {
                                 for (var j = 0; j < items.length; j++) {
-                                    if (items[j].SportId != favoriteSports[i].SportId) {
+                                    if (items[j].SportId == favoriteSports[i].SportId) {
                                         if (items.splice(j, 1).length > 0) {
                                             j--;    
                                         }
