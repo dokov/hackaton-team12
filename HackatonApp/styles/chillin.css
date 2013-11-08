@@ -116,7 +116,7 @@ h1.logo img{
 
 /*Discounts*/
 .discounts .km-navbar{
-    background:#FF3300!important;
+    background:#FFBA14!important;
 }
 #discounts-listview li{
     background:#fff!important;
@@ -150,6 +150,11 @@ h1.logo img{
 }
 #places-listview li .user-info h2{
     color:#000;
+}
+
+/*Cafeteria*/
+.cafeteria .km-navbar{
+    background:#FF3300!important;
 }
 
 /*Sports*/
