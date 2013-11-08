@@ -15,6 +15,7 @@
         <script src="scripts/app/cafeteria.js" type="text/javascript"></script>
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="styles/main.css" rel="stylesheet" />
+        <link href="styles/chillin.css" rel="stylesheet" />
     </head>
     <body id="friendsApp">
         <section data-role="layout" data-id="default">
@@ -22,7 +23,7 @@
         </section>
         <!--WELCOME VIEW -->
         <div data-role="view" id="welcome" data-layout="default" class="welcome-scrn form-view" data-model="app.viewModels.login">
-            <h1><b>Everlive</b> sample application</h1>
+            <h1 class="logo"><img src="styles/images/logo.png" alt="" /></h1>
             <form id="login-form">
                 <ul data-role="listview" data-style="inset">
                     <li><label for="loginUsername">Username</label> <input type="text" value="astoilkov" id="loginUsername" required validationMessage="Username is required!" /></li>
