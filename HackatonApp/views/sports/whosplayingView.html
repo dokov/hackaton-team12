@@ -5,7 +5,19 @@
             <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
         </div>
     </header>
-
+    <br />
+    <div data-role="touch">
+        <div class="user-info">
+            <h2 data-bind="html: activity.ActivityName"></h2>
+        </div>
+        <div class="user-share">
+            Description: <a class="user-share-txt" data-bind="html: activity.Description"></a>
+            <br/>
+            Event Date & Time: <a class="user-share-txt" data-bind="html: activity.EventDateTime"></a>    
+            <br/>
+        </div>
+    </div>
+    
     <ul id="acitvityUsers-listview" data-style="inset" data-role="listview" data-template="activityUserTemplate"
         data-bind="source: users"></ul>
 </div>

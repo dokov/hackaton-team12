@@ -24,9 +24,13 @@
             <a class="user-share-txt">${SlotsAvailable}</a> free slots
             <br/>
             <br/>
-            <div data-role="touch" data-bind="events: { tap: subscribeForEvent }">
-                <a data-role="button">Count me in</a>
-                
+    <div data-role="touch">
+                <a data-role="button" href="${WhosPlayingHref()}"}>See who's playing</a>
+            </div>
+            <div data-bind="visible: CouldSubscribe()">
+                <div data-role="touch" data-bind="events: { tap: subscribeForEvent }">
+                    <a data-role="button">Count me in</a>
+                </div>
             </div>
         </div>
     </div>

@@ -310,7 +310,7 @@
         },
         createEvent: function (e) {
             var that = this,
-                $element = $(e.event.target).closest("#activities-listview"),
+                $element = $(e.event.target).closest("#new-event-view"),
                 sportId = $element.find("#sports").val(),
                 name = $element.find("#name").val(),
                 dateTime = new Date($element.find("#dateTime").val()),
@@ -373,7 +373,7 @@
                         for (var i = 0; i < favoriteSports.length; i++) {
                             if (currentUser.Id == favoriteSports[i].UserId) {
                                 for (var j = 0; j < items.length; j++) {
-                                    if (items[j].SportId == favoriteSports[i].SportId) {
+                                    if (items[j].SportId != favoriteSports[i].SportId) {
                                         if (items.splice(j, 1).length > 0) {
                                             j--;    
                                         }
@@ -392,7 +392,7 @@
             var activityId = e.view.params.activityId,
                 element = e.view.element;
             var model = {
-              title: "Who's Playing"  ,
+                  title: "Who's Playing"  ,
                 users: []
             };
             Everlive.$.data('ActivitySubcribers').get()
@@ -407,7 +407,11 @@
                                 
                             }
                         }
-                        kendo.bind(element, model, kendo.mobile.ui);
+                        Everlive.$.data("Activities").getById(activityId)
+                        .then(function (data) {
+                               model.activity = data.result; 
+                                kendo.bind(element, model, kendo.mobile.ui);
+                        });
                     });
                 });
             
