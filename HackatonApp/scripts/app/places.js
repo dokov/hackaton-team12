@@ -1,6 +1,7 @@
 var app = app || {};
 app.places = (function(){
-    
+    var currentPlace;
+    var $boundElement;
     var placesModel = (function () {
 		var placeModel = {
 			id: 'Id',
@@ -106,13 +107,18 @@ app.places = (function(){
     
     var commentsLogic = {
         createComment: function(e){
-            debugger;
             var data = app.everlive.data('Comment'),
-            place = placesModel.places.getByUid(e.sender.view().params.uid);
-            $element = $(e.event.target).closest("#single-activity"),
-            commentVal = $element.find("#myComment").val();
-            data.create({'Content' : commentVal, 'CommentedItem' : place.id}, function(succ){
-                
+            commentVal = $boundElement.find("#myComment").val();
+            var query = new Everlive.Query();
+            data.create({'Content' : commentVal, 'CommentedItem' : currentPlace.id}, function(succ){
+                data.get(query.where().eq('CommentedItem', currentPlace.id).done().orderDesc('CreatedAt')).then(function(dt){
+                    var viewModel = kendo.observable({
+                        commentsLogic: commentsLogic,
+                        comments: dt.result,
+                        place: currentPlace,
+                    });
+                    kendo.bind($boundElement, viewModel, kendo.mobile.ui);
+                });
             });
         }
     };
@@ -122,15 +128,18 @@ app.places = (function(){
 			show: function (e) {
 				var place = placesModel.places.getByUid(e.view.params.uid);
                 var data = app.everlive.data('Comment');
-                var query = new Everlive.Query();  
-                data.get(query.where().eq('CommentedItem', place.id).done()).then(function(dt){
-                    debugger;
+                var query = new Everlive.Query(); 
+                $boundElement = e.view.element;
+                currentPlace = place;
+                $("#submitCommentButton").unbind("click");
+                $("#submitCommentButton").click(commentsLogic.createComment);
+                data.get(query.where().eq('CommentedItem', place.id).done().orderDesc('CreatedAt')).then(function(dt){
                     var viewModel = kendo.observable({
                         commentsLogic: commentsLogic,
                         comments: dt.result,
                         place: place,
                     });
-                    kendo.bind(e.view.element, viewModel, commentsLogic);
+                    kendo.bind(e.view.element, viewModel, kendo.mobile.ui);
                 });
 			}
 		};

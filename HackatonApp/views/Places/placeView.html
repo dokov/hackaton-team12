@@ -1,4 +1,4 @@
-<div data-role="view" id="single-activity" data-layout="default" class="activities-view" data-show="app.places.placeViewModel.show">
+<div data-role="view" id="single-place" data-layout="default" class="activities-view" data-show="app.places.placeViewModel.show">
     <header data-role="header">
         <div data-role="navbar">
             Place
@@ -25,7 +25,7 @@
     <div>
         <h2>Your comment:</h2>
         <input type="text" id="myComment" />
-        <div data-role="touch" data-bind="events: { tap: commentsLogic.createComment }">
+        <div>
                 <a id="submitCommentButton" data-role="button">Submit Comment</a>    
         </div>
     </div>
