@@ -108,6 +108,7 @@ h1.logo img{
     margin:1rem 0;
 }
 #submitCommentButton{
+    margin-bottom:2rem;
     background:#222!important;
 }
 
@@ -176,7 +177,7 @@ h1.logo img{
     padding:0.5rem 1rem!important;
     border-bottom:1px solid #ddd!important;
 }
-#events-listview li .user-share{
+#events-listview li .user-share, #events-listview li .user-info{
 
     padding-left:0;
     box-shadow:none;
@@ -186,6 +187,19 @@ h1.logo img{
     color:#000;
 }
 
+#acitvityUsers-listview .user-info{
+    padding:0 1rem;
+}
+
+.sportAction{
+    float:left;
+}
+.km-button{
+    background:#222!important;
+}
+.nav-button.km-button.km-back, .nav-button.km-button{
+    background:none!important;
+}
 
 
 
@@ -209,7 +223,7 @@ h1.logo img{
     background:#444!important;
 }
 #status-container .km-buttongroup{
-    margin-bottom:4rem;
+    margin-bottom:2rem;
 }
 #status-container p{
 

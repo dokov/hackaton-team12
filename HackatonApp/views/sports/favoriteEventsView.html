@@ -22,14 +22,14 @@
             <h2>${ActivityName}</h2>
         </div>
         <div class="user-share">
-            Description: <a class="user-share-txt">${Description}</a>
+            <span class="user-share-txt">${SlotsAvailable}</span> free slots
             <br/>
-            Event Date & Time: <a class="user-share-txt">${EventDateTime}</a>    
+            <span class="user-share-txt">${Description}</span>
             <br/>
-            <a class="user-share-txt">${SlotsAvailable}</a> free slots
+            <span class="user-share-txt">${EventDateTime}</span>    
             <br/>
             <br/>
-            <div data-role="touch">
+            <div data-role="touch" class="sportAction">
                 <a data-role="button" href="${WhosPlayingHref()}"}>See who's playing</a>
             </div>
             <div data-bind="visible: CouldSubscribe()">
@@ -37,6 +37,7 @@
                     <a data-role="button">Count me in</a>
                 </div>
             </div>
+    <div style="clear: both"></div>
         </div>
     </div>
 </script>
