@@ -129,8 +129,14 @@ h1.logo img{
     padding-left:0;
     background:#fff!important;
 }
+#discounts-listview li .user-share{
+
+    padding-left:0;
+    box-shadow:none;
+}
 #discounts-listview li .user-info h2{
     color:#000;
+    padding-left:0;
 }
 /*Places*/
 
@@ -150,6 +156,18 @@ h1.logo img{
 }
 #places-listview li .user-info h2{
     color:#000;
+}
+
+/*Massages*/
+.massages .km-navbar{
+    background:#826BAF!important;
+}
+.massages{
+    text-align:center;
+}
+.massages img{
+    width:100%;
+    margin:3rem 0;
 }
 
 /*Cafeteria*/
@@ -218,9 +236,7 @@ h1.logo img{
     padding:1rem;
     box-shadow:none;
 }
-#status-container h2{
-    text-align:center;
-}
+
 #status-container .km-button{
     background:#222!important;
 }
