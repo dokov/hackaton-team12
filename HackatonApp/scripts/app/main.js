@@ -293,7 +293,7 @@ var app = (function () {
                 IconUrl: "img/icons/icon_discounts.png"
             },
             {
-                Title: "Sport activities",
+                Title: "Sports",
                 Url: "views/sports/sportsMainView.html",
                 IconUrl: ""
             },

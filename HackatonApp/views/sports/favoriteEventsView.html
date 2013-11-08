@@ -1,4 +1,4 @@
-<div data-role="view" id="view-favorite-events" data-layout="default" class="activities-view" data-model="app.viewModels.sports" >
+<div data-role="view" id="view-favorite-events" data-layout="default" class="activities-view" data-show="app.viewModels.sports.favoriteEventShow">
     <header data-role="header">
         <div data-role="navbar">
             Favorite Events
@@ -24,9 +24,13 @@
             <a class="user-share-txt">${SlotsAvailable}</a> free slots
             <br/>
             <br/>
-            <div data-role="touch" data-bind="events: { tap: subscribeForEvent }">
-                <a data-role="button">Count me in</a>
-                
+            <div data-role="touch">
+                <a data-role="button" href="${WhosPlayingHref()}"}>See who's playing</a>
+            </div>
+            <div data-bind="visible: CouldSubscribe()">
+                <div data-role="touch" data-bind="events: { tap: subscribeForEvent }">
+                    <a data-role="button">Count me in</a>
+                </div>
             </div>
         </div>
     </div>
