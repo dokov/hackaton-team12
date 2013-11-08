@@ -45,6 +45,10 @@ h2{
     background:#CDCDC1;
 }
 
+#friendsApp.km-ios .form-view .km-listinset{
+    box-shadow:none;
+}
+
 .user-info{
     border-bottom:none;
 }
@@ -58,6 +62,14 @@ h2{
 }
 .km-content{
     background:#fff!important;
+}
+
+h1.logo{
+    margin:3rem 0 2rem 0;
+    text-align:center;
+}
+h1.logo img{
+    width:60%;
 }
 
 /*Discounts*/
