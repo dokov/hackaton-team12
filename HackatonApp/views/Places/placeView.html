@@ -19,19 +19,19 @@
             <li>5</li>
         </ul>
     </div>
-    <div>
-        <h2>Your comment:</h2>
-        <input type="text" id="myComment" />
+    <div id="leavecomment">
+        <input type="text" id="myComment" placeholder="Leave a comment" />
         <div>
                 <a id="submitCommentButton" data-role="button">Submit Comment</a>    
         </div>
     </div>
     <div>
-    <h2>Comments:</h2>
+    <h2>Comments</h2>
     <ul id="places-listview" data-style="inset" data-role="listview" data-template="commentTemplate"
         data-bind="source: comments"></ul>
         <script type="text/x-kendo-template" id="commentTemplate">
             <div class="user-info">
+                <small><strong>Joe Black</strong></small>
                 <div>${Content}</div>
             </div>
         </script>

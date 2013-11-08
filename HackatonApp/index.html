@@ -30,14 +30,14 @@
                     <li><label for="loginPassword">Password</label> <input type="password" value="mostwanted" id="loginPassword" required validationMessage="Password is required!" /></li>
                 </ul>
             </form>
-            <ol class="group-wrp">
+            <ol class="group-wrp login-btn-group">
                 <li>
-                    <span data-role="touch" data-bind="events: { tap: login }" style="display: inline-block">
-                        <a data-role="button" class="btn-login btn-big">Login</a>
+                    <span data-role="touch" data-bind="events: { tap: login }" class="login-btn">
+                        <a data-role="button" class="btn-big">Login</a>
                     </span>
-
+                    <br />
+                    <a href="views/signupView.html">Sign up</a> 
                 </li>
-                <li class="b-top"><a data-role="button" href="views/signupView.html" class="btn-signup btn-big">Sign up</a> </li>
             </ol>
 
         </div>

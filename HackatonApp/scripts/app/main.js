@@ -288,29 +288,29 @@ var app = (function () {
 	var mainMenuViewModel = (function () {
         var menuItems = [
             {
-                Title: "Discounts",
-                Url: "views/activitiesView.html",
-                IconUrl: "img/icons/icon_discounts.png"
-            },
-            {
-                Title: "Sports",
-                Url: "views/sports/sportsMainView.html",
-                IconUrl: ""
+                Title: "Cafeteria",
+                Url: "views/Cafeteria/todaysMenuView.html",
+                IconUrl: "img/icons/cafeteria.png"
             },
             {
                 Title: "Lunch",
                 Url: "views/Places/placesView.html",
-                IconUrl: ""
+                IconUrl: "img/icons/lunch.png"
+            },
+            {
+                Title: "Sports",
+                Url: "views/sports/sportsMainView.html",
+                IconUrl: "img/icons/sports.png"
+            },
+            {
+                Title: "Discounts",
+                Url: "views/activitiesView.html",
+                IconUrl: "img/icons/discounts.png"
             },
             {
                 Title: "Massages",
                 Url: "views/activitiesView.html",
-                IconUrl: ""
-            },
-            {
-                Title: "Cafeteria",
-                Url: "views/Cafeteria/todaysMenuView.html",
-                IconUrl: ""
+                IconUrl: "img/icons/massages.png"
             }
         
         ];
