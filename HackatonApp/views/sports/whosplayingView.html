@@ -1,0 +1,32 @@
+<div data-role="view" id="view-activity-users" data-layout="default" class="activities-view" data-show="app.viewModels.sports.onWhosPlayingShow">
+    <header data-role="header">
+        <div data-role="navbar">
+            <span data-bind="html: title"></span>
+            <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
+        </div>
+    </header>
+    <br />
+    <div data-role="touch">
+        <div class="user-info">
+            <h2 data-bind="html: activity.ActivityName"></h2>
+        </div>
+        <div class="user-share">
+            Description: <a class="user-share-txt" data-bind="html: activity.Description"></a>
+            <br/>
+            Event Date & Time: <a class="user-share-txt" data-bind="html: activity.EventDateTime"></a>    
+            <br/>
+        </div>
+    </div>
+    
+    <ul id="acitvityUsers-listview" data-style="inset" data-role="listview" data-template="activityUserTemplate"
+        data-bind="source: users"></ul>
+</div>
+
+<!-- Activities ListView Template -->
+<script type="text/x-kendo-template" id="activityUserTemplate">
+    <div data-role="touch">
+        <div class="user-info">
+            ${DisplayName}    
+        </div>
+    </div>
+</script>
