@@ -1,6 +1,7 @@
 var app = app || {};
 app.places = (function(){
-    
+    var currentPlace;
+    var $boundElement;
     var placesModel = (function () {
 		var placeModel = {
 			id: 'Id',
@@ -56,20 +57,6 @@ app.places = (function(){
 		};
 	}());
     
-    var placeViewModel = (function () {
-		return {
-			show: function (e) {
-				var place = placesModel.places.getByUid(e.view.params.uid);
-                    
-                var viewModel = kendo.observable({
-                        place: place,
-                    });
-                kendo.bind(e.view.element, viewModel, kendo.mobile.ui);
-				
-			}
-		};
-	}());
-    
     var ratingLogic = {
         onSelect: function(e){
             var userId = app.viewModels.addActivity.me.data.Id,
@@ -99,7 +86,6 @@ app.places = (function(){
                          var totalRating = calculateRating(dt);
                          place.set("Rating", totalRating);
                          placesModel.places.sync();
-                         // alert("Successfully rated this item!");
                     }); 
                 });
                 }
@@ -119,7 +105,48 @@ app.places = (function(){
         },
     };
     
+    var commentsLogic = {
+        createComment: function(e){
+            var data = app.everlive.data('Comment'),
+            commentVal = $boundElement.find("#myComment").val();
+            var query = new Everlive.Query();
+            data.create({'Content' : commentVal, 'CommentedItem' : currentPlace.id}, function(succ){
+                data.get(query.where().eq('CommentedItem', currentPlace.id).done().orderDesc('CreatedAt')).then(function(dt){
+                    var viewModel = kendo.observable({
+                        commentsLogic: commentsLogic,
+                        comments: dt.result,
+                        place: currentPlace,
+                    });
+                    kendo.bind($boundElement, viewModel, kendo.mobile.ui);
+                });
+            });
+        }
+    };
+    
+    var placeViewModel = (function () {
+		return {
+			show: function (e) {
+				var place = placesModel.places.getByUid(e.view.params.uid);
+                var data = app.everlive.data('Comment');
+                var query = new Everlive.Query(); 
+                $boundElement = e.view.element;
+                currentPlace = place;
+                $("#submitCommentButton").unbind("click");
+                $("#submitCommentButton").click(commentsLogic.createComment);
+                data.get(query.where().eq('CommentedItem', place.id).done().orderDesc('CreatedAt')).then(function(dt){
+                    var viewModel = kendo.observable({
+                        commentsLogic: commentsLogic,
+                        comments: dt.result,
+                        place: place,
+                    });
+                    kendo.bind(e.view.element, viewModel, kendo.mobile.ui);
+                });
+			}
+		};
+	}());
+    
     return {
+        commentsLogic: commentsLogic,
         ratingLogic: ratingLogic,
         placesViewModel: placesViewModel,
         placeViewModel: placeViewModel

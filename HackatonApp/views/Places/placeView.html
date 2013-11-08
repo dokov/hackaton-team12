@@ -1,16 +1,16 @@
-<div data-role="view" id="single-activity" data-layout="default" class="activities-view places" data-show="app.places.placeViewModel.show">
+<div data-role="view" id="single-place" data-layout="default" class="activities-view" data-show="app.places.placeViewModel.show">
     <header data-role="header">
         <div data-role="navbar">
-            <span data-bind="html: place.Title"></span>
+            Place
             <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
         </div>
     </header>
 
     <div id="status-container" class="user-status-wrp" data-role="listview" data-style="inset">
-        <img id="picture" data-bind="attr:{src: place.ImageUrl()}" width="100%"/>
-        <div data-bind="html: place.Description" class="user-share"></div>
-        <p class="rating" for="ratingHolder">Rating <span id="ratingHolder" data-bind="html: place.Rating"></span></p>
-        <h2>Your rating</h2>
+        <h1 data-bind="html: place.Title"></h1>
+        <label for="ratingHolder">Current Rating</label>
+        <h2 id="ratingHolder" data-bind="html: place.Rating"></h2>
+        <h2>Your rating:</h2>
         <ul data-role="buttongroup" data-select="app.places.ratingLogic.onSelect">
             <li>1</li>
             <li>2</li>
@@ -18,7 +18,25 @@
             <li>4</li>
             <li>5</li>
         </ul>
-        
-        
+        <div data-bind="html: place.Description" class="user-share">
+        </div>
+        <img id="picture" data-bind="attr:{src: place.ImageUrl()}" width="100%"/>
     </div>
+    <div>
+        <h2>Your comment:</h2>
+        <input type="text" id="myComment" />
+        <div>
+                <a id="submitCommentButton" data-role="button">Submit Comment</a>    
+        </div>
+    </div>
+    <div>
+    <h2>Comments:</h2>
+    <ul id="places-listview" data-style="inset" data-role="listview" data-template="commentTemplate"
+        data-bind="source: comments"></ul>
+        <script type="text/x-kendo-template" id="commentTemplate">
+            <div class="user-info">
+                <div>${Content}</div>
+            </div>
+        </script>
+        </div>
 </div>

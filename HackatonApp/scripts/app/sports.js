@@ -128,6 +128,10 @@
 					field: 'ActivityName',
 					defaultValue: ''
 				},
+                SportId: {
+                  field: "SportId",
+                    defaultValue: ''
+                },
                 Description: {
                     field: "Description",
                     defalutValue: ""
@@ -149,6 +153,12 @@
 					defaultValue: []
 				}
 			},
+            CouldSubscribe: function () {
+                  return this.SlotsAvailable > 0;  
+            },
+            WhosPlayingHref: function () {
+                  return "views/sports/whosplayingView.html?activityId=" + this.Id;  
+            },
 			CreatedAtFormatted: function () {
 				return AppHelper.formatDate(this.get('CreatedAt'));
 			},
@@ -166,8 +176,9 @@
 				};
 			},
 
-            subscribeForEvent: function () {
-                var that = this,
+            subscribeForEvent: function (e) {
+                var $view = $(e.sender.element).closest("[data-role='view']"),
+                      that = this,
                     user = app.everlive.Users.currentUser().then(function (data) {
                         Everlive.$.data("ActivitySubcribers").create(
                             {
@@ -175,12 +186,25 @@
                                 "ActivityId": that.Id
                             },
                             function () {
-                                  debugger;  
+                                
                             },
                             function (data1, data2, data3) { 
-                                debugger;
+                                
                             }
                         );
+                        var slotsAvailable = parseInt(that.SlotsAvailable) - 1;
+                        Everlive.$.data("Activities").updateSingle({ Id: that.Id, SlotsAvailable: slotsAvailable },
+                            function(data){
+                                app.viewModels.sports.favoriteEventShow({
+                                   view: {
+                                       element: $view.get(0)
+                                   } 
+                                });
+                            },
+                            function(error){
+                            }
+                        );
+                        
                     });
             }
 		};
@@ -286,7 +310,7 @@
         },
         createEvent: function (e) {
             var that = this,
-                $element = $(e.event.target).closest("#activities-listview"),
+                $element = $(e.event.target).closest("#new-event-view"),
                 sportId = $element.find("#sports").val(),
                 name = $element.find("#name").val(),
                 dateTime = new Date($element.find("#dateTime").val()),
@@ -336,7 +360,70 @@
                 });
             });
             sportsModel.read();
+        },
+        favoriteEventShow: function (e) {
+            var element = e.view.element;
+            eventsModel.bind("change", function (e) {
+               var items = e.items;
+                Everlive.$.data('FavoriteSports').get()
+                .then(function (data) {
+                    var favoriteSports = data.result;
+                    app.everlive.Users.currentUser().then(function (currentUser) {
+                        currentUser = currentUser.result;
+                        for (var i = 0; i < favoriteSports.length; i++) {
+                            if (currentUser.Id == favoriteSports[i].UserId) {
+                                for (var j = 0; j < items.length; j++) {
+                                    if (items[j].SportId == favoriteSports[i].SportId) {
+                                        if (items.splice(j, 1).length > 0) {
+                                            j--;    
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        kendo.bind(element, { events: items }, kendo.mobile.ui);
+                        eventsModel.unbind("change");
+                    });
+                });
+            });
+            eventsModel.read();
+        },
+        onWhosPlayingShow: function (e) {
+            var activityId = e.view.params.activityId,
+                element = e.view.element;
+            var model = {
+                  title: "Who's Playing"  ,
+                users: []
+            };
+            Everlive.$.data('ActivitySubcribers').get()
+                .then(function (data) {
+                    var subscribers = data.result;
+                    Everlive.$.data('Users').get()
+                    .then(function (data) {
+                        var users = data.result;
+                        for (var i = 0; i < subscribers.length; i++) {
+                            if (subscribers[i].ActivityId == activityId) {
+                                model.users.push(getUser(users, subscribers[i].UserId));
+                                
+                            }
+                        }
+                        Everlive.$.data("Activities").getById(activityId)
+                        .then(function (data) {
+                               model.activity = data.result; 
+                                kendo.bind(element, model, kendo.mobile.ui);
+                        });
+                    });
+                });
+            
         }
     };
+    
+    function getUser(users, userId) {
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].Id == userId) {
+                return users[i];
+            }
+        }
+    }
     
 })(window.app, jQuery);
