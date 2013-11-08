@@ -1,20 +1,33 @@
 <div data-role="view" id="single-activity" data-layout="default" class="activities-view" data-show="app.viewModels.activity.show">
     <header data-role="header">
         <div data-role="navbar">
-            Activity
+            Discount
             <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
         </div>
     </header>
 
     <div id="status-container" class="user-status-wrp" data-role="listview" data-style="inset">
         <div class="user-info">
-            <img data-bind="attr:{src: User().PictureUrl}" alt="styles/images/avatar.png" />
-            <h2 id="personName" data-bind='text: User().DisplayName'></h2>
+            <h2 id="personName" data-bind='text: Title'></h2>
             <time id="activityDate" data-bind="text: CreatedAtFormatted"></time>
         </div>
-        <img id="picture" data-bind="attr:{src: PictureUrl()}" width="100%"/>
         <div class="user-share">
-            <span id="activityText" data-bind="text: Text" class="user-share-txt"></span>
+            <span>Address</span>
+            <span data-bind="text: Address" class="user-share-txt"></span>
         </div>
+        <div class="user-share">
+            <span>Condition</span>
+            <span data-bind="text: Condition" class="user-share-txt"></span>
+        </div>
+        <div class="user-share">
+            <span>additional info</span>
+            <span data-bind="text: AdditionalInfo" class="user-share-txt"></span>
+        </div>
+        <div class="user-share">
+            <span>last updated</span>
+            <span data-bind="text: LastModifiedFormatted" class="user-share-txt"></span>
+        </div>
+        
+        
     </div>
 </div>

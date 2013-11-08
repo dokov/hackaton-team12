@@ -221,9 +221,20 @@ var app = (function () {
 			CreatedAtFormatted: function () {
 				return 'Added on ' + AppHelper.formatDate(this.get('CreatedAt'));
 			},
+			LastModifiedFormatted: function () {
+				return AppHelper.formatDate(this.get('ModifiedAt'));
+			},
+			AdditionalInfo: function () {
+                var info = this.get('Info');
+				return info ? info : "no additional info";
+			},
 			PictureUrl: function () {
 				return AppHelper.resolvePictureUrl(this.get('Picture'));
 			},
+            MapUrl: function() {
+                var location = this.get('Location');
+                return string.Format("http://maps.googleapis.com/maps/api/staticmap?center={0},{1}&zoom=8&size=400x300&scale1&sensor=false&markers=color:red%7Clabel:A%7C{0},{1}", location.latitude, location.longitude);          
+            },
 			User: function () {
 				var userId = this.get('UserId');
 				var user = $.grep(usersModel.users(), function (e) {
