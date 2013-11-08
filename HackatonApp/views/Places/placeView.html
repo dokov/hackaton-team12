@@ -1,16 +1,16 @@
-<div data-role="view" id="single-place" data-layout="default" class="activities-view" data-show="app.places.placeViewModel.show">
+<div data-role="view" id="single-place" data-layout="default" class="activities-view places" data-show="app.places.placeViewModel.show">
     <header data-role="header">
         <div data-role="navbar">
-            Place
+            <span data-bind="html: place.Title"></span>
             <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
         </div>
     </header>
 
     <div id="status-container" class="user-status-wrp" data-role="listview" data-style="inset">
-        <h1 data-bind="html: place.Title"></h1>
-        <label for="ratingHolder">Current Rating</label>
-        <h2 id="ratingHolder" data-bind="html: place.Rating"></h2>
-        <h2>Your rating:</h2>
+        <img id="picture" data-bind="attr:{src: place.ImageUrl()}" width="100%"/>
+         <div data-bind="html: place.Description" class="user-share"></div>
+         <p class="rating" for="ratingHolder">Rating <span id="ratingHolder" data-bind="html: place.Rating"></span></p>
+         <h2>Your rating</h2>
         <ul data-role="buttongroup" data-select="app.places.ratingLogic.onSelect">
             <li>1</li>
             <li>2</li>
@@ -18,9 +18,6 @@
             <li>4</li>
             <li>5</li>
         </ul>
-        <div data-bind="html: place.Description" class="user-share">
-        </div>
-        <img id="picture" data-bind="attr:{src: place.ImageUrl()}" width="100%"/>
     </div>
     <div>
         <h2>Your comment:</h2>
